@@ -1,0 +1,58 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+    <session-factory>
+
+        <!-- Database connection settings -->
+        <property name="connection.driver_class">org.postgresql.Driver</property>
+        <property name="connection.url">jdbc:postgresql://localhost:5432/bookstore</property>
+        <property name="connection.username">postgres</property>
+        <property name="connection.password">secret</property>
+
+        <!-- SQL dialect -->
+        <property name="dialect">org.hibernate.dialect.PostgreSQLDialect</property>
+
+        <!-- Echo all executed SQL to stdout -->
+        <property name="show_sql">true</property> <!-- Not in the production environment -->
+
+        <property name="format_sql">true</property>
+
+        <!-- Activate Hibernate Statistics -->
+        <property name="generate_statistics">true</property> <!-- Not in the production environment -->
+
+        <!-- Use XML-based mapping metadata -->	
+        <!-- <mapping resource="domain/Message.hbm.xml"/> -->
+
+        <!-- Create/update database table automatically using mapping metadata -->
+        <property name="hbm2ddl.auto">update</property> <!-- good for dev environment -->
+        <!-- create - DROPS and then CREATE the table in the database-->
+        <!-- create-drop - Same as create, but when session factory is closed DROPS all the tables-->
+
+        <!-- Use Annotation-based mapping metadata -->
+        <mapping class="entity.Message"/>
+        <mapping class="entity.User"/>
+        <mapping class="entity.Book"/>
+        <mapping class="entity.Publisher"/>
+        <mapping class="entity.CustomerCard"/>
+        <mapping class="entity.Author"/>
+
+    </session-factory>
+</hibernate-configuration>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
