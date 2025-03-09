@@ -20,9 +20,8 @@ public class Publisher {
 	@OneToMany(mappedBy = "publisher")
 	private Set<Book> books = new HashSet<>();
 
+	public Publisher() {}
 
-
-	public Publisher() {}	
 	public Publisher(String code, String name) {
 		this.code = code;
 		this.name = name;
@@ -31,6 +30,7 @@ public class Publisher {
 	public String getCode() {
 		return code;
 	}
+
 	public void setCode(String code) {
 		this.code = code;
 	}
@@ -38,6 +38,7 @@ public class Publisher {
 	public String getName() {
 		return name;
 	}
+
 	public void setName(String name) {
 		this.name = name;
 	}

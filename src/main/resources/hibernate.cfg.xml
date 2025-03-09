@@ -38,6 +38,7 @@
         <mapping class="entity.Publisher"/>
         <mapping class="entity.CustomerCard"/>
         <mapping class="entity.Author"/>
+        <mapping class="entity.Chapter"/>
 
     </session-factory>
 </hibernate-configuration>

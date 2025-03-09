@@ -13,6 +13,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 
 import java.util.HashSet;
 import java.util.List;
@@ -23,6 +24,7 @@ public class Book {
 
 	@Id
 	private String isbn;
+
 	@Column(name = "book_name")
 	private String name;
 
@@ -43,8 +45,12 @@ public class Book {
 	//@Enumerated
 	@Column(name = "book_category")
 	private BookCategory category;
+
+	@OneToMany(cascade = CascadeType.PERSIST, mappedBy = "book")
+	private Set<Chapter> chapters = new HashSet<>();
 	
 	public Book() {}
+
 	public Book(String isbn, String name, Publisher publisher) {
 		this.isbn = isbn;
 		this.name = name;
@@ -69,34 +75,45 @@ public class Book {
 	public void setPublisher(Publisher publisher) {
 		this.publisher = publisher;
 	}
-
 	public Set<Author> getAuthors() {
 		return authors;
 	}
-
 	public void setAuthors(Set<Author> authors) {
 		this.authors = authors;
 	}
-
 	public BookCategory getCategory() {
 		return category;
 	}
-
 	public void setCategory(BookCategory category) {
 		this.category = category;
 	}
+	public Set<Chapter> getChapters() {
+		return chapters;
+	}
+	public void setChapters(Set<Chapter> chapters) {
+		this.chapters = chapters;
+	}
 
-	//	public List<Chapter> getChapters() {
-//		return chapters;
-//	}
-//	public void setChapters(List<Chapter> chapters) {
-//		this.chapters = chapters;
-//	}
-	
+	public void addChapter(Chapter chapter) {
+		this.chapters.add(chapter);
+		chapter.setBook(this);
+	}
+
+	public void removeChapter(Chapter chapter) {
+		this.chapters.remove(chapter);
+		chapter.setBook(null);
+	}
+
 	@Override
 	public String toString() {
-		return "Book [isbn=" + isbn + ", name=" + name + ", publisher="
-				+ publisher + "]";
+		return "Book{" +
+				"isbn='" + isbn + '\'' +
+				", name='" + name + '\'' +
+				", publisher=" + publisher +
+				", authors=" + authors.size() +
+				", category=" + category +
+				", chapters=" + chapters.size() +
+				'}';
 	}
 }
 

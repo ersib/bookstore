@@ -9,10 +9,13 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToMany;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -31,6 +34,9 @@ public class Author {
 
 	@ManyToMany(mappedBy = "authors")
 	private Set<Book> books = new HashSet<>();
+
+	@JdbcTypeCode(SqlTypes.JSON) // @JdbcTypeCode only after Hibernate 6
+	private Award award;
 
 	public Author() {
 	}
@@ -79,6 +85,14 @@ public class Author {
 
 	public void setNickNames(Collection<String> nickNames) {
 		this.nickNames = nickNames;
+	}
+
+	public Award getAward() {
+		return award;
+	}
+
+	public void setAward(Award award) {
+		this.award = award;
 	}
 
 	@Override

@@ -2,16 +2,22 @@ package client;
 
 import entity.Address;
 import entity.Author;
+import entity.Award;
 import entity.Book;
+import entity.Chapter;
 import entity.CustomerCard;
 import entity.Publisher;
 import entity.User;
+import entity.compositekeys.ChapterId;
 import entity.enums.BookCategory;
 import org.hibernate.Session;
 
 import org.hibernate.Transaction;
 import util.HibernateUtil;
 import entity.Message;
+
+import java.util.Collection;
+import java.util.Collections;
 
 public class HelloWorldClient {
 	public static void main(String[] args) {
@@ -47,8 +53,19 @@ public class HelloWorldClient {
 //			john.getNickNames().add("Grish");
 //			session.save(john);
 
-			Author author = session.get(Author.class, 102);
-			System.out.println(author);
+
+//			Publisher publisher = new Publisher("OREI", "O'Reilly Media, Inc.");
+//			Book book = new Book("983724993482", "Just Hibernate", publisher);
+//			Chapter firstChapter = new Chapter(1, "Basics", book);
+//			Chapter secondChapter = new Chapter(2, "Advanced", book);
+//			book.addChapter(firstChapter);
+//			book.addChapter(secondChapter);
+//			session.persist(book);
+
+			Author author = new Author("Charles Dickens");
+			author.setNickNames(Collections.singletonList("Charley"));
+			author.setAward(new Award("Golden letter", 1878, "AIA"));
+			session.persist(author);
 
 			tx.commit();
 		} catch (Exception e) {
